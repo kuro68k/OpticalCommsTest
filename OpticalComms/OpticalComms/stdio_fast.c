@@ -87,8 +87,8 @@ int printf(const char *fmt, ...)
 			c = *fmt++;
 			if (!c) goto ret;
 			if (c == '%') {
-			c = *fmt++;
-			if (c != '%') break;
+				c = *fmt++;
+				if (c != '%') break;
 			}
 		__putchar(c);
 		char_count++;

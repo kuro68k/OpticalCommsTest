@@ -4,6 +4,7 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <avr/pgmspace.h>
 #include <util/delay.h>
 #include <stdio.h>
 #include "stdio_fast.h"
@@ -23,7 +24,7 @@ int main(void)
 	
 	PORTC.DIRSET = PIN7_bm;	// TX
 	STDIO_init();
-	puts("\r\nOptical Comms Test");
+	puts_P(PSTR("\r\nOptical Comms Test"));
 	
 	PORTC.DIRCLR = PIN4_bm;
 	ENABLE_PULLUP(PORTC.PIN4CTRL);
@@ -64,7 +65,7 @@ int main(void)
 			for (uint8_t i = 1; i < ptr; i++)	// discard sample 0
 				ave += capture_buffer[i];
 			ave /= ptr;
-			printf("ave: %lu\r\n", ave);
+			printf_P(PSTR("ave: %lu\r\n"), ave);
 
 			// compare pulse width with average
 			for (uint8_t i = 1; i < ptr; i++)	// discard sample 0
