@@ -1,0 +1,290 @@
+EESchema Schematic File Version 4
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title "Photo Edge Detector"
+Date ""
+Rev "1"
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 "Licence: GPL V3"
+$EndDescr
+$Comp
+L Device:R R1
+U 1 1 5D249C22
+P 2650 3750
+F 0 "R1" H 2720 3796 50  0000 L CNN
+F 1 "10k" H 2720 3705 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 2580 3750 50  0001 C CNN
+F 3 "~" H 2650 3750 50  0001 C CNN
+	1    2650 3750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C1
+U 1 1 5D249CCC
+P 3800 4300
+F 0 "C1" H 3915 4346 50  0000 L CNN
+F 1 "100n" H 3915 4255 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 3838 4150 50  0001 C CNN
+F 3 "~" H 3800 4300 50  0001 C CNN
+	1    3800 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Comparator:LM393 U1
+U 1 1 5D249DDC
+P 4300 3950
+F 0 "U1" H 4350 3700 50  0000 C CNN
+F 1 "LM393" H 4400 3800 50  0000 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 4300 3950 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm393-n.pdf" H 4300 3950 50  0001 C CNN
+	1    4300 3950
+	1    0    0    1   
+$EndComp
+$Comp
+L Comparator:LM393 U1
+U 3 1 5D249EC2
+P 4300 3950
+F 0 "U1" H 4258 3996 50  0001 L CNN
+F 1 "LM393" H 4258 3905 50  0001 L CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 4300 3950 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm393-n.pdf" H 4300 3950 50  0001 C CNN
+	3    4300 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 5D24A0F5
+P 3450 4050
+F 0 "R2" V 3350 4050 50  0000 C CNN
+F 1 "10k" V 3550 4050 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 3380 4050 50  0001 C CNN
+F 3 "~" H 3450 4050 50  0001 C CNN
+	1    3450 4050
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3800 4050 3800 4150
+Wire Wire Line
+	3800 4050 4000 4050
+$Comp
+L Device:Q_Photo_NPN Q1
+U 1 1 5D24A385
+P 2550 4400
+F 0 "Q1" H 2741 4446 50  0000 L CNN
+F 1 "NPN" H 2741 4355 50  0000 L CNN
+F 2 "LED_THT:LED_D5.0mm" H 2750 4500 50  0001 C CNN
+F 3 "~" H 2550 4400 50  0001 C CNN
+	1    2550 4400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2650 4050 2650 3900
+Wire Wire Line
+	2650 4050 2650 4200
+Connection ~ 2650 4050
+$Comp
+L power:GND #PWR02
+U 1 1 5D24A45E
+P 2650 4700
+F 0 "#PWR02" H 2650 4450 50  0001 C CNN
+F 1 "GND" H 2655 4527 50  0000 C CNN
+F 2 "" H 2650 4700 50  0001 C CNN
+F 3 "" H 2650 4700 50  0001 C CNN
+	1    2650 4700
+	1    0    0    -1  
+$EndComp
+Connection ~ 3800 4050
+$Comp
+L power:VCC #PWR01
+U 1 1 5D24A63F
+P 2650 3550
+F 0 "#PWR01" H 2650 3400 50  0001 C CNN
+F 1 "VCC" H 2667 3723 50  0000 C CNN
+F 2 "" H 2650 3550 50  0001 C CNN
+F 3 "" H 2650 3550 50  0001 C CNN
+	1    2650 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R3
+U 1 1 5D24AE13
+P 4800 3750
+F 0 "R3" H 4870 3796 50  0000 L CNN
+F 1 "10k" H 4870 3705 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 4730 3750 50  0001 C CNN
+F 3 "~" H 4800 3750 50  0001 C CNN
+	1    4800 3750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4600 3950 4800 3950
+Wire Wire Line
+	4800 3950 4800 3900
+Text Label 5200 3950 2    50   ~ 0
+OUT
+Connection ~ 4800 3950
+$Comp
+L Connector_Generic:Conn_01x03 J1
+U 1 1 5D24BFD5
+P 5600 3950
+F 0 "J1" H 5679 3946 50  0000 L CNN
+F 1 "Conn_01x03" H 5680 3901 50  0001 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 5600 3950 50  0001 C CNN
+F 3 "~" H 5600 3950 50  0001 C CNN
+	1    5600 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4800 3950 5400 3950
+Wire Wire Line
+	5400 3850 5300 3850
+Wire Wire Line
+	5400 4050 5300 4050
+$Comp
+L Device:R R5
+U 1 1 5D24CD94
+P 3450 3450
+F 0 "R5" H 3520 3496 50  0000 L CNN
+F 1 "50k" H 3520 3405 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 3380 3450 50  0001 C CNN
+F 3 "~" H 3450 3450 50  0001 C CNN
+	1    3450 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR03
+U 1 1 5D24CDC0
+P 3450 3650
+F 0 "#PWR03" H 3450 3400 50  0001 C CNN
+F 1 "GND" H 3455 3477 50  0000 C CNN
+F 2 "" H 3450 3650 50  0001 C CNN
+F 3 "" H 3450 3650 50  0001 C CNN
+	1    3450 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R4
+U 1 1 5D24CE01
+P 3450 3050
+F 0 "R4" H 3520 3096 50  0000 L CNN
+F 1 "1k" H 3520 3005 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 3380 3050 50  0001 C CNN
+F 3 "~" H 3450 3050 50  0001 C CNN
+	1    3450 3050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3100 2850 3100 4050
+Wire Wire Line
+	3450 2900 3450 2850
+Wire Wire Line
+	3450 3200 3450 3250
+Wire Wire Line
+	3450 3600 3450 3650
+Wire Wire Line
+	3800 3250 3800 3850
+Wire Wire Line
+	3800 3850 4000 3850
+Connection ~ 3450 3250
+Wire Wire Line
+	3450 3250 3450 3300
+$Comp
+L power:VCC #PWR05
+U 1 1 5D24DFFB
+P 4200 3550
+F 0 "#PWR05" H 4200 3400 50  0001 C CNN
+F 1 "VCC" H 4217 3723 50  0000 C CNN
+F 2 "" H 4200 3550 50  0001 C CNN
+F 3 "" H 4200 3550 50  0001 C CNN
+	1    4200 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR07
+U 1 1 5D24E927
+P 4800 3550
+F 0 "#PWR07" H 4800 3400 50  0001 C CNN
+F 1 "VCC" H 4817 3723 50  0000 C CNN
+F 2 "" H 4800 3550 50  0001 C CNN
+F 3 "" H 4800 3550 50  0001 C CNN
+	1    4800 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR08
+U 1 1 5D24ED25
+P 5300 3550
+F 0 "#PWR08" H 5300 3400 50  0001 C CNN
+F 1 "VCC" H 5317 3723 50  0000 C CNN
+F 2 "" H 5300 3550 50  0001 C CNN
+F 3 "" H 5300 3550 50  0001 C CNN
+	1    5300 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR04
+U 1 1 5D24F196
+P 3800 4550
+F 0 "#PWR04" H 3800 4300 50  0001 C CNN
+F 1 "GND" H 3805 4377 50  0000 C CNN
+F 2 "" H 3800 4550 50  0001 C CNN
+F 3 "" H 3800 4550 50  0001 C CNN
+	1    3800 4550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3800 4550 3800 4450
+$Comp
+L power:GND #PWR06
+U 1 1 5D24F46F
+P 4200 4550
+F 0 "#PWR06" H 4200 4300 50  0001 C CNN
+F 1 "GND" H 4205 4377 50  0000 C CNN
+F 2 "" H 4200 4550 50  0001 C CNN
+F 3 "" H 4200 4550 50  0001 C CNN
+	1    4200 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR09
+U 1 1 5D24F781
+P 5300 4150
+F 0 "#PWR09" H 5300 3900 50  0001 C CNN
+F 1 "GND" H 5305 3977 50  0000 C CNN
+F 2 "" H 5300 4150 50  0001 C CNN
+F 3 "" H 5300 4150 50  0001 C CNN
+	1    5300 4150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4200 4550 4200 4250
+Wire Wire Line
+	4200 3550 4200 3650
+Wire Wire Line
+	4800 3550 4800 3600
+Wire Wire Line
+	5300 3550 5300 3850
+Wire Wire Line
+	5300 4050 5300 4150
+Wire Wire Line
+	2650 4700 2650 4600
+Wire Wire Line
+	2650 3550 2650 3600
+Wire Wire Line
+	3450 3250 3800 3250
+Wire Wire Line
+	3100 2850 3450 2850
+Wire Wire Line
+	3100 4050 3300 4050
+Wire Wire Line
+	2650 4050 3100 4050
+Connection ~ 3100 4050
+Wire Wire Line
+	3600 4050 3800 4050
+$EndSCHEMATC
