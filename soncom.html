@@ -1,0 +1,134 @@
+<html>
+	<head>
+		<title>Sonic Comms</title>
+		
+		<script type="text/javascript">
+			var bitCounter = 0;
+			var toggle = true;
+			var frameCount = 0;
+			var frameLimit = 0;
+			
+			var bytes;
+			var bits;
+
+			function EncodeBits() {
+				var text = "";
+				var bits = [ ];
+				
+				for (var i = 0; i < bytes.length; i++)
+				{
+					for (var b = 0; b < 8; b++)
+					{
+						bits.push(bytes[i] & (1<<b) ? 1 : 0);
+						text += bytes[i] & (1<<b) ? '1' : '0';
+					}
+				}
+				document.getElementById('binary').innerHTML = text;
+				
+				draw();
+			}
+			
+			function play() {
+				var audioContext = new AudioContext();
+				var sampleRate = audioContext.sampleRate;
+				var duration = sampleRate / 2;	// pilot tone
+				duration += (sampleRate / 300) * bits.length;
+				var buffer = audioContext.createBuffer(1, duration, sampleRate);
+				var cd = buffer.getChannelData(0);
+				var sampleCount = 0;
+
+				// pilot tone
+				for (var i = 0; i < (sampleRate / 2); i++)
+				{
+					cd[sampleCount++] = Math.sin(2 * Math.PI * 2000 * i / sampleRate);
+				}
+				
+				// bits
+				for (var bitCount = 0; bitCount < bits.length; bitCount++)
+				{
+					var freq = bits[bitCount] ? 1000 : 2000;
+					for (var i = 0; i < (sampleRate / 300); i++)
+					{
+						cd[sampleCount++] = Math.sin(2 * Math.PI * freq * i / sampleRate);
+					}
+				}
+			
+				var source = audioContext.createBufferSource();
+				source.buffer = buffer;
+				source.connect(audioContext.destination);
+				source.start(0);
+			}
+
+			function DebugBits() {
+				var text = "";
+				for (var b = 0; b < bits.length; b++)
+				{
+					text += bits[b];
+					if (b % 8 == 7)
+						text += " ";
+				}
+				document.getElementById('binary').innerHTML = text;
+			}
+
+			function AddBits(word, numBits) {
+				for (var b = 0; b < numBits; b++)
+				{
+					bits.push(word & (1<<b) ? 1 : 0);
+				}
+			}
+			
+			function CalculateChecksum() {
+				var sum = 0;
+				var pos = 0;
+				for (var b = 8; b < bits.length; b++)
+				{
+					sum ^= bits[b] << pos;
+					pos++;
+					if (pos > 7)
+						pos = 0;
+				}
+				return sum;
+			}
+			
+			function setTime() {
+				bits = [ 0, 0, 0, 0, 1, 1, 1, 1 ];	// preamble
+				var dt = new Date();
+				
+				AddBits(dt.getFullYear() - 2000, 7);
+				AddBits(dt.getMonth(), 4);
+				AddBits(dt.getDate(), 5);
+				AddBits(dt.getHours(), 5);
+				AddBits(dt.getMinutes(), 6);
+				AddBits(dt.getSeconds(), 6);
+				
+				var dst = document.getElementById("cbDST").checked == "true" ? 1 : 0;
+				AddBits(dst, 1);
+				
+				var tz = parseInt(document.getElementById("tbTZ").value);
+				AddBits(tz, 5);
+				
+				var padding = 0;
+				AddBits(padding, 1);
+				
+				AddBits(CalculateChecksum(), 8);
+				
+				DebugBits();
+				
+				bitCounter = 0;
+				toggle = true;
+				frameCount = 0;
+				play();
+			}
+		</script>
+		
+	</head>
+	<body>
+		<p><h1>Comms Test</h1></p>
+		
+		<p><span id="binary">-</span></p>
+
+		<p><input type="checkbox" id="cbDST" checked>Enable Daylight Saving Time</p>
+		<p><input type="number" id="tbTZ" value="0">Timezone offset in hours</p>
+		<p><button onclick="setTime()">Set clock</button></p>
+	</body>
+</html>
